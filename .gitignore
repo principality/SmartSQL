@@ -2,7 +2,7 @@
 # copy from: https://alvinalexander.com/source-code/scala/sample-gitignore-file-scala-sbt-intellij-eclipse
 # (may want to keep parts of 'project')
 bin/
-project/target
+project/
 target/
 build/
 
