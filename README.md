@@ -1,3 +1,3 @@
 # SmartSQL
 
-Cluster middle-ware for MySQL
+Cluster middle-ware for MySQL/Postgres
