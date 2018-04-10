@@ -1,12 +1,12 @@
+package me.principality.smartsql.protocol.mysql
 
-package me.principality.smartsql.protocol
-
+import java.nio.ByteOrder
 import akka.util.ByteString
 import scala.annotation.tailrec
 
-trait Buffering {
+class Buffering {
 
-  val MAX_PACKET_LEN: Short = 10000
+  val MAX_PACKET_LEN: Int = 16 << 8 // 16M
 
   /**
     * Extracts complete packets of the specified length, preserving remainder
@@ -19,7 +19,7 @@ trait Buffering {
     */
   def getPacket(data: ByteString): (List[ByteString], ByteString) = {
 
-    implicit val byteOrder = java.nio.ByteOrder.BIG_ENDIAN
+    implicit val byteOrder: ByteOrder = java.nio.ByteOrder.LITTLE_ENDIAN // 小端排序
     val headerSize = 2
 
     @tailrec
