@@ -10,6 +10,6 @@ object Main {
     logger.info("system init...")
 
     val system = ActorSystem.create("SmartSQL")
-    system.actorOf(TcpServer.props("0.0.0.0", 3333))
+    system.actorOf(TcpServer.props("0.0.0.0", 33061))
   }
 }
