@@ -4,5 +4,5 @@ import akka.actor.ActorRef
 import akka.util.ByteString
 
 private[smartsql] trait BaseHandler {
-  def handle(packet: ByteString, sender: ActorRef)
+  def handle(packet: ByteString, sender: ActorRef): (List[ByteString], ByteString)
 }
