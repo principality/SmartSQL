@@ -25,9 +25,9 @@ import scala.annotation.tailrec
   *
   * 1. 建立tcp三次握手连接
   * 2. 客户端与服务器建立连接，Connection Phase
-  *    s->c 发送握手初始包
-  *    c->s 发送验证包
-  *    s->c 服务器发送认证结果包
+  * s->c 发送握手初始包
+  * c->s 发送验证包
+  * s->c 服务器发送认证结果包
   * 3. 认证通过后，服务器接受客户端命令包并发送响应包，Command Phase
   * 4. 客户端断开连接请求 exit 命令
   * 5. 四次挥手断开连接
@@ -38,10 +38,15 @@ import scala.annotation.tailrec
   * 3. 调用SQL解析处理器
   */
 private[smartsql] class MySQLHandler extends BaseHandler {
-  override def handle(packet: ByteString, sender: ActorRef): Unit = {
-    // TODO 记得要把packet frame的逻辑加上
+  override def handle(packet: ByteString, sender: ActorRef): Option[ByteString] = {
     // TODO 对包处理的缓冲机制要仔细考虑，必须注意太多客户端连接导致OOM的问题
-    parsePacket(packet)
+    val (packets, remainder) = parsePacket(packet)
+
+    for (packet <- packets) {
+      parseSQL(parseMySQL(packet))
+    }
+
+    if (remainder.nonEmpty) Some(remainder) else None
   }
 
   /**
@@ -56,8 +61,8 @@ private[smartsql] class MySQLHandler extends BaseHandler {
   def parsePacket(packet: ByteString): (List[ByteString], ByteString) = {
     implicit val byteOrder: ByteOrder = java.nio.ByteOrder.LITTLE_ENDIAN // 小端排序
 
-    val MAX_PACKET_LEN: Int = 16 << 8 // 16M
-    val headerSize = 2
+    val maxPacketLen = MySQLProtocol.MAX_PACKET_LEN
+    val headerSize = MySQLProtocol.HEADER_SIZE
 
     @tailrec
     def multiPacket(packets: List[ByteString], current: ByteString): (List[ByteString], ByteString) = {
@@ -65,7 +70,7 @@ private[smartsql] class MySQLHandler extends BaseHandler {
         (packets.reverse, current)
       } else {
         val len = current.iterator.getShort
-        if (len > MAX_PACKET_LEN || len < 0) throw new RuntimeException(s"Invalid packet length: $len")
+        if (len > maxPacketLen || len < 0) throw new RuntimeException(s"Invalid packet length: $len")
         if (current.length < len + headerSize) {
           (packets.reverse, current)
         } else {
@@ -87,6 +92,4 @@ private[smartsql] class MySQLHandler extends BaseHandler {
   def parseSQL(packet: ByteString): Unit = {
     ???
   }
-
-
 }
