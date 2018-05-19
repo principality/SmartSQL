@@ -21,6 +21,7 @@ class TcpServer(address: String, port: Int) extends Actor {
     case c@Connected(remote, local) => {
       val handler = context.actorOf(Props[ProtocolHandler])
       val connection = sender()
+      handler ! connection
       connection ! Register(handler)
     }
   }
