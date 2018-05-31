@@ -1,13 +1,12 @@
-package me.principality.smartsql
+package me.principality.smartsql.protocol
 
-import org.specs2._
+import org.specs2.Specification
 import org.specs2.specification.core.SpecStructure
 
-class MainSpec extends Specification {
-
+class JdbcSpec extends Specification {
   override def is: SpecStructure =
     s2"""
-      check application $go
+      sharding jdbc $go
     """
 
   def go = {

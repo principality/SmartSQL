@@ -1,6 +1,12 @@
 package me.principality.smartsql.protocol
 
+import java.net.InetSocketAddress
+
+import akka.actor.{Actor, Props}
+import akka.io.{IO, Tcp}
+import akka.util.ByteString
 import org.specs2.mutable
+
 import scala.concurrent.ExecutionContext.Implicits.global
 import slick.jdbc.JdbcBackend
 import slick.jdbc.MySQLProfile.api._
@@ -19,5 +25,5 @@ class MySQLSpec extends mutable.Specification {
     } finally db.close()
     success
   }
-
 }
+

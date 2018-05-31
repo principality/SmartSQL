@@ -41,12 +41,29 @@ private[smartsql] class MySQLHandler extends BaseHandler {
   override def handle(packet: ByteString, sender: ActorRef): Option[ByteString] = {
     // TODO 对包处理的缓冲机制要仔细考虑，必须注意太多客户端连接导致OOM的问题
     val (packets, remainder) = parsePacket(packet)
+    implicit var initContext = new ParseContext(16<<8,0, MySQLProtocolPhase.Connection, sender)
 
+    // TODO 过程式代码风格，待优化
     for (packet <- packets) {
-      parseSQL(parseMySQL(packet))
+      val (content, context) = parseMySQL(packet)
+      initContext = context
+      val response = parseSQL(content)
+      sender ! response(context) // 返回结果
     }
 
     if (remainder.nonEmpty) Some(remainder) else None
+  }
+
+  def parseMySQL(command: ByteString)(implicit context: ParseContext): (ByteString, ParseContext) = {
+    ???
+  }
+
+  /**
+    * 这里把SQL语句丢给SqlHandler来做，返回response
+    * @param packet
+    */
+  def parseSQL(packet: ByteString)(implicit context: ParseContext): MySQLResponse = {
+    ???
   }
 
   /**
@@ -58,7 +75,7 @@ private[smartsql] class MySQLHandler extends BaseHandler {
     * @param packet A list of the packets extracted from the raw data in order of receipt
     * @return A list of ByteStrings containing extracted packets as well as any remaining buffer data not consumed
     */
-  def parsePacket(packet: ByteString): (List[ByteString], ByteString) = {
+  private def parsePacket(packet: ByteString): (List[ByteString], ByteString) = {
     implicit val byteOrder: ByteOrder = java.nio.ByteOrder.LITTLE_ENDIAN // 小端排序
 
     val maxPacketLen = MySQLProtocol.MAX_PACKET_LEN
@@ -83,13 +100,5 @@ private[smartsql] class MySQLHandler extends BaseHandler {
     }
 
     multiPacket(List[ByteString](), packet)
-  }
-
-  def parseMySQL(command: ByteString): ByteString = {
-    ???
-  }
-
-  def parseSQL(packet: ByteString): Unit = {
-    ???
   }
 }
