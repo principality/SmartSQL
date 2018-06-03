@@ -5,7 +5,7 @@ import akka.util.ByteString
 import me.principality.smartsql.protocol.BaseHandler
 
 class PostgresHandler extends BaseHandler {
-  override def handle(packet: ByteString, sender: ActorRef): Option[ByteString] = {
-    None
-  }
+  override def handle(packet: ByteString, sender: ActorRef): Option[ByteString] = ???
+
+  override def onConnect(connection: ActorRef): Unit = ???
 }

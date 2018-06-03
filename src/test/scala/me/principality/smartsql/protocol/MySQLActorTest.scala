@@ -4,16 +4,16 @@ import java.net.InetSocketAddress
 
 import akka.actor.{Actor, ActorRef, ActorSystem, Props}
 import akka.io.{IO, Tcp}
-import akka.io.Tcp._
-import akka.testkit.{ImplicitSender, TestKit}
 import akka.util.ByteString
 import akka.testkit.{ImplicitSender, TestActors, TestKit}
-import me.principality.smartsql.protocol.mysql.HandshakeResponse
+import me.principality.smartsql.protocol.mysql.MySQLProtocol.HandshakeV10
 import org.scalatest.{BeforeAndAfterAll, Matchers, WordSpecLike}
 import scodec.bits.BitVector
-
 import scala.concurrent.duration._
 
+/***
+  * 需要做一个模拟的客户端，对mysql的协议进行测试
+  */
 class MySQLActorTest() extends TestKit(ActorSystem("testSystem"))
   with ImplicitSender
   with WordSpecLike
@@ -57,18 +57,19 @@ class MySQLClient(hostname: String, port: Int) extends Actor {
       val connection = sender()
       connection ! Register(self)
       context become {
-        case data: ByteString ⇒
+        case data: ByteString =>
           System.out.println(data)
-        case CommandFailed(w: Write) ⇒
+        case CommandFailed(w: Write) =>
           // O/S buffer was full
           System.out.println("write failed")
-        case Received(data) ⇒
+        case Received(data) =>
           System.out.println(data.toString)
-          val bits = BitVector.apply(data.toArray)
-          val decoded = Codec[HandshakeResponse].decode(bits)
-        case "close" ⇒
+          val bits = BitVector.apply(data.toByteBuffer)
+          val decoded = Codec[HandshakeV10].decode(bits)
+          System.out.println(decoded)
+        case "close" =>
           connection ! Close
-        case _: ConnectionClosed ⇒
+        case _: ConnectionClosed =>
           System.out.println("connection closed")
           context stop self
       }

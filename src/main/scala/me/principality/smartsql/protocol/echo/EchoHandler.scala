@@ -11,4 +11,6 @@ class EchoHandler extends BaseHandler {
     sender ! Write(packet)
     None
   }
+
+  override def onConnect(connection: ActorRef): Unit = ???
 }

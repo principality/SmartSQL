@@ -4,7 +4,10 @@ import java.nio.ByteOrder
 
 import akka.actor.ActorRef
 import akka.util.ByteString
+import com.typesafe.scalalogging.Logger
 import me.principality.smartsql.protocol.BaseHandler
+import me.principality.smartsql.protocol.mysql.MySQLProtocol.{HandshakeV10, MySQLProtocolPhase, ParseContext}
+import me.principality.smartsql.tcp.ProtocolHandler
 
 import scala.annotation.tailrec
 
@@ -38,6 +41,9 @@ import scala.annotation.tailrec
   * 3. 调用SQL解析处理器
   */
 private[smartsql] class MySQLHandler extends BaseHandler {
+
+  val logger: Logger = Logger[ProtocolHandler]
+
   override def handle(packet: ByteString, sender: ActorRef): Option[ByteString] = {
     // TODO 对包处理的缓冲机制要仔细考虑，必须注意太多客户端连接导致OOM的问题
     val (packets, remainder) = parsePacket(packet)
@@ -101,4 +107,11 @@ private[smartsql] class MySQLHandler extends BaseHandler {
 
     multiPacket(List[ByteString](), packet)
   }
+
+  override def onConnect(connection: ActorRef): Unit = {
+  }
 }
+
+trait MySQLResponse {
+  def apply(context: ParseContext)
+} // 响应命令
