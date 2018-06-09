@@ -1,9 +1,7 @@
-package me.principality.smartsql.sql.adapter
+package me.principality.smartsql.sql
 
 import java.sql.{Connection, DriverManager, ResultSet, Statement}
 import java.util.Properties
-
-import me.principality.smartsql.sql.SqlHandler
 
 /**
   * calcite采用jdbc api对外提供访问的接口，此处为使用方法示例。

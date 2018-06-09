@@ -1,14 +1,27 @@
 {
   version: '1.0',
-  defaultSchema: 'ShardingDB',
+  defaultSchema: 'shard_demo',
   schemas: [
     {
-      name: 'ShardingDB',
+      name: 'shard_demo',
       type: 'custom',
       factory: 'me.principality.smartsql.adapter.jdbc.JdbcSchemaFactory',
       operand: {
-        hosts: '127.0.0.1:3306'
-      }
+        urls: 'jdbc:mysql://127.0.0.1:33061/;jdbc:mysql://127.0.0.1:33062/'
+      },
+      tables: [
+        {
+          name: 'user',
+          type: 'custom',
+          factory: 'me.principality.smartsql.sql.adapter.JdbcTableFactory',
+          operand: {
+            shared: 'true',
+            sharedtype: 'hash',
+            sharedkey: 'unique_id',
+            keys: 'user_name;user_name+password'
+          }
+        }
+      ]
     }
   ]
 }

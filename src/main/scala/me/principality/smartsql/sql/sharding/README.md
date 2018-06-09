@@ -30,25 +30,4 @@
 - 分片的列表
 - 分片的方法，以及相应的参数
 
-参考vitess，先用文件进行配置，计划将来该部分实现放到MetaRepository中
-
-```
-// user keyspace
-{
-  "sharded": true,
-  "vindexes": {
-    "hash": {
-      "type": "hash"
-    },
-  "tables": {
-    "user": {
-      "column_vindexes": [
-        {
-          "column": "user_id",
-          "name": "hash"
-        }
-      ]
-    }
-  }
-}
-```
+先用model.json文件进行配置，计划将来该部分实现放到MetaRepository中
