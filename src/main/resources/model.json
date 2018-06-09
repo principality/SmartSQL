@@ -1,0 +1,14 @@
+{
+  version: '1.0',
+  defaultSchema: 'ShardingDB',
+  schemas: [
+    {
+      name: 'ShardingDB',
+      type: 'custom',
+      factory: 'me.principality.smartsql.adapter.jdbc.JdbcSchemaFactory',
+      operand: {
+        hosts: '127.0.0.1:3306'
+      }
+    }
+  ]
+}

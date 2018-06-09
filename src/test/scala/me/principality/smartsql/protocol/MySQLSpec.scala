@@ -1,15 +1,10 @@
 package me.principality.smartsql.protocol
 
-import java.net.InetSocketAddress
-
-import akka.actor.{Actor, Props}
-import akka.io.{IO, Tcp}
-import akka.util.ByteString
 import org.specs2.mutable
-
-import scala.concurrent.ExecutionContext.Implicits.global
 import slick.jdbc.JdbcBackend
 import slick.jdbc.MySQLProfile.api._
+
+import scala.concurrent.ExecutionContext.Implicits.global
 
 /**
   * 通过标准客户端对后端的连接，测试与后端的交互过程是否正确，

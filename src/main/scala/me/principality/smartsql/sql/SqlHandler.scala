@@ -1,6 +1,6 @@
 package me.principality.smartsql.sql
 
-import akka.util.ByteString
+import java.sql.ResultSet
 
 /**
   * 对SQL进行：
@@ -9,5 +9,5 @@ import akka.util.ByteString
   * 3、生成执行计划
   */
 trait SqlHandler {
-  def execute(sql: String): Unit
+  def execute(sql: String): Option[ResultSet]
 }
