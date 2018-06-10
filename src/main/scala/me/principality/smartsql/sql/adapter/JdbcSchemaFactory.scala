@@ -14,6 +14,6 @@ import org.apache.calcite.schema.{Schema, SchemaFactory, SchemaPlus}
   */
 class JdbcSchemaFactory extends SchemaFactory {
   override def create(parentSchema: SchemaPlus, name: String, operand: util.Map[String, AnyRef]): Schema = {
-    ???
+    new JdbcSchema
   }
 }

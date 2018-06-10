@@ -1,11 +1,11 @@
-{
+inline:{
   version: '1.0',
   defaultSchema: 'shard_demo',
   schemas: [
     {
       name: 'shard_demo',
       type: 'custom',
-      factory: 'me.principality.smartsql.adapter.jdbc.JdbcSchemaFactory',
+      factory: 'me.principality.smartsql.sql.adapter.JdbcSchemaFactory',
       operand: {
         urls: 'jdbc:mysql://127.0.0.1:33061/;jdbc:mysql://127.0.0.1:33062/'
       },

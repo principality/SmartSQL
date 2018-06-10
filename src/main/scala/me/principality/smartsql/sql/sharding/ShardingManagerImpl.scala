@@ -15,5 +15,5 @@ class ShardingManagerImpl extends ShardingManager
 
   override def merge(sets: Iterable[ResultSet]): Unit = ???
 
-  override def apply(rule: ShardingRule): Unit = ???
+  override def init(rule: ShardingRule): Unit = ???
 }
