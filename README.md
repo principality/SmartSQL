@@ -16,3 +16,9 @@ Add distributed analysis ability to distributed database solution.
 
 SmartSQL的定位在于在分布式OLTP方案的基础上，增加计算的功能，从而满足OLTP+OLAP混合的应用场景，
 实现智能分析和在线事务的一体化处理。
+
+## RoadMap
+
+目前的开发重点是：
+1. 分析功能
+2. 索引加速
