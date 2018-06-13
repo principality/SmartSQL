@@ -3,9 +3,7 @@ package me.principality.smartsql.sql.adapter
 import java.util
 
 import me.principality.smartsql.sql.sharding.ShardingManagerImpl
-import me.principality.smartsql.sql.sharding.define.ResultSet
 import org.apache.calcite.schema.{Schema, SchemaFactory, SchemaPlus}
-import slick.jdbc.JdbcBackend
 
 /**
   * 一个完整的calcite adapter实现，需要包括：

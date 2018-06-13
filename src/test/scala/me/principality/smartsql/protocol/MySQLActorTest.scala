@@ -4,11 +4,12 @@ import java.net.InetSocketAddress
 
 import akka.actor.{Actor, ActorRef, ActorSystem, Props}
 import akka.io.{IO, Tcp}
+import akka.testkit.{ImplicitSender, TestKit}
 import akka.util.ByteString
-import akka.testkit.{ImplicitSender, TestActors, TestKit}
 import me.principality.smartsql.protocol.mysql.MySQLProtocol.HandshakeV10
 import org.scalatest.{BeforeAndAfterAll, Matchers, WordSpecLike}
 import scodec.bits.BitVector
+
 import scala.concurrent.duration._
 
 /***
@@ -42,7 +43,6 @@ class MySQLClient(hostname: String, port: Int) extends Actor {
   import Tcp._
   import context.system
   import scodec.Codec
-  import scodec.codecs.implicits._
 
   val inetSocketAddress = new InetSocketAddress(hostname, port)
 

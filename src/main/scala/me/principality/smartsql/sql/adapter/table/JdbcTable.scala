@@ -1,9 +1,6 @@
 package me.principality.smartsql.sql.adapter.table
 
-import org.apache.calcite.DataContext
-import org.apache.calcite.linq4j.Enumerable
 import org.apache.calcite.rel.`type`.{RelDataType, RelDataTypeFactory}
-import org.apache.calcite.schema.ScannableTable
 import org.apache.calcite.schema.impl.AbstractTable
 
 /**

@@ -1,11 +1,9 @@
 package me.principality.smartsql.sql.adapter
 
-import me.principality.smartsql.sql.adapter.table.{JdbcScanTable, JdbcTable}
-import me.principality.smartsql.sql.sharding.ShardingManagerImpl
+import me.principality.smartsql.sql.adapter.table.JdbcScanTable
 import org.apache.calcite.schema.Table
 import org.apache.calcite.schema.impl.AbstractSchema
 import org.apache.calcite.util.Source
-import slick.jdbc.JdbcBackend
 
 /**
   * 根据不同的配置，初始化生成不同类型的表

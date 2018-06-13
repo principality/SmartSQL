@@ -43,18 +43,23 @@ import scala.annotation.tailrec
 private[smartsql] class MySQLHandler extends BaseHandler {
 
   val logger: Logger = Logger[ProtocolHandler]
+  implicit var initContext: ParseContext = null
 
   override def handle(packet: ByteString, sender: ActorRef): Option[ByteString] = {
-    // TODO 对包处理的缓冲机制要仔细考虑，必须注意太多客户端连接导致OOM的问题
+    //TODO 对包处理的缓冲机制要仔细考虑，必须注意太多客户端连接导致OOM的问题
     val (packets, remainder) = parsePacket(packet)
-    implicit var initContext = new ParseContext(16<<8,0, MySQLProtocolPhase.Connection, sender)
+    //TODO FIXME 每一次接收都创建是不对的
+    initContext = new ParseContext(16 << 8, 0, MySQLProtocolPhase.Connection, sender)
 
-    // TODO 过程式代码风格，待优化
-    for (packet <- packets) {
+    def process(packet: ByteString) = {
       val (content, context) = parseMySQL(packet)
-      initContext = context
       val response = parseSQL(content)
       sender ! response(context) // 返回结果
+      context
+    }
+
+    for (packet <- packets) {
+      initContext = process(packet)
     }
 
     if (remainder.nonEmpty) Some(remainder) else None
@@ -66,6 +71,7 @@ private[smartsql] class MySQLHandler extends BaseHandler {
 
   /**
     * 这里把SQL语句丢给SqlHandler来做，返回response
+    *
     * @param packet
     */
   def parseSQL(packet: ByteString)(implicit context: ParseContext): MySQLResponse = {
