@@ -1,5 +1,5 @@
 package me.principality.smartsql.sql.sharding.define
 
-trait ShardingManager {
+trait ShardingWorker {
   def execute(sql: String): ResultSet
 }

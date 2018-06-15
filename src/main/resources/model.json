@@ -20,6 +20,28 @@ inline:{
             sharedkey: 'unique_id',
             keys: 'user_name;user_name+password'
           }
+        },
+        {
+          name: 'user2',
+          type: 'custom',
+          factory: 'me.principality.smartsql.sql.adapter.JdbcTableFactory',
+          operand: {
+            shared: 'true',
+            sharedtype: 'name',
+            sharedkey: 'jdbc:mysql://127.0.0.1:33061/',
+            keys: 'user_name;user_name+password'
+          }
+        },
+        {
+          name: 'user3',
+          type: 'custom',
+          factory: 'me.principality.smartsql.sql.adapter.JdbcTableFactory',
+          operand: {
+            shared: 'true',
+            sharedtype: 'range',
+            sharedkey: 'unique_id',
+            keys: 'user_name;user_name+password'
+          }
         }
       ]
     }

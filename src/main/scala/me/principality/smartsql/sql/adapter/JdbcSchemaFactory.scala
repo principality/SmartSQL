@@ -2,7 +2,6 @@ package me.principality.smartsql.sql.adapter
 
 import java.util
 
-import me.principality.smartsql.sql.sharding.ShardingManagerImpl
 import org.apache.calcite.schema.{Schema, SchemaFactory, SchemaPlus}
 
 /**
@@ -17,7 +16,7 @@ import org.apache.calcite.schema.{Schema, SchemaFactory, SchemaPlus}
   */
 class JdbcSchemaFactory extends SchemaFactory {
   override def create(parentSchema: SchemaPlus, name: String, operand: util.Map[String, AnyRef]): Schema = {
-    ShardingManagerImpl(operand.get("urls").asInstanceOf[String], name)
+    JdbcContext(operand.get("urls").asInstanceOf[String], name)
     new JdbcSchema
   }
 }
