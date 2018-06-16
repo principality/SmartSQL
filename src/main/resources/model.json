@@ -15,9 +15,9 @@ inline:{
           type: 'custom',
           factory: 'me.principality.smartsql.sql.adapter.JdbcTableFactory',
           operand: {
-            shared: 'true',
-            sharedtype: 'hash',
-            sharedkey: 'unique_id',
+            shard: 'true',
+            shardtype: 'hash',
+            shardkey: 'unique_id',
             keys: 'user_name;user_name+password'
           }
         },
@@ -26,10 +26,8 @@ inline:{
           type: 'custom',
           factory: 'me.principality.smartsql.sql.adapter.JdbcTableFactory',
           operand: {
-            shared: 'true',
-            sharedtype: 'name',
-            sharedkey: 'jdbc:mysql://127.0.0.1:33061/',
-            keys: 'user_name;user_name+password'
+            shard: 'false',
+            keys: 'jdbc:mysql://127.0.0.1:33061/'
           }
         },
         {
@@ -37,9 +35,9 @@ inline:{
           type: 'custom',
           factory: 'me.principality.smartsql.sql.adapter.JdbcTableFactory',
           operand: {
-            shared: 'true',
-            sharedtype: 'range',
-            sharedkey: 'unique_id',
+            shard: 'true',
+            shardtype: 'range',
+            shardkey: 'unique_id',
             keys: 'user_name;user_name+password'
           }
         }
