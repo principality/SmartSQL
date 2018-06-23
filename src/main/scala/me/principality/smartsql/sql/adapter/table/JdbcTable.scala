@@ -17,7 +17,7 @@ import org.apache.calcite.schema.impl.AbstractTable
   *   org.apache.calcite.schema.StreamableTable
   *   org.apache.calcite.schema.TranslatableTable
   *
-  * 关注：FilterableTable, ProjectableFilterableTable, QueryableTable, ScannableTable, TranslatableTable
+  * 关注：ScannableTable, FilterableTable, ProjectableFilterableTable, QueryableTable, TranslatableTable
   *
   * adapter负责对接calcite，最终的实现通过sharding来完成
   */
