@@ -14,8 +14,8 @@
 
 ### 分布式框架
 
-- 节点感知，可靠性，弹性，自适应……：actor based cluster
-- 一致性协议：akka-raft
+- 节点感知，可靠性，弹性，自适应……：actor based cluster, akka
+- 一致性协议：raft, atomix
 
 ### 时序
 

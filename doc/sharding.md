@@ -26,7 +26,9 @@
 index是核心功能，假如对数据进行查询，且查询条件不包含分片主键时，
 不带index会导致数据查询被迫分派到所有的后端上，引起数据查询的多余执行
 - debezium用于抽取mysql数据记录
-- treemap: akka-distributed-data, mapdb, hazelcast, apache geode, apache ignite
+- treemap:
+  - 弱一致性：akka-distributed-data, hazelcast, infinispan
+  - 强一致性：apache geode, apache ignite
 
 ### util
 

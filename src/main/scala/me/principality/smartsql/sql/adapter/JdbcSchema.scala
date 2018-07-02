@@ -1,6 +1,6 @@
 package me.principality.smartsql.sql.adapter
 
-import me.principality.smartsql.sql.adapter.table.JdbcScanTable
+import me.principality.smartsql.sql.adapter.table.JdbcScanableTable
 import org.apache.calcite.schema.Table
 import org.apache.calcite.schema.impl.AbstractSchema
 import org.apache.calcite.util.Source
@@ -10,6 +10,6 @@ import org.apache.calcite.util.Source
   */
 class JdbcSchema extends AbstractSchema {
   def createTable(source: Source): Table = {
-    new JdbcScanTable
+    new JdbcScanableTable
   }
 }

@@ -22,7 +22,6 @@ import org.apache.calcite.schema.impl.AbstractTable
   * adapter负责对接calcite，最终的实现通过sharding来完成
   */
 abstract class JdbcTable extends AbstractTable {
-
   override def getRowType(typeFactory: RelDataTypeFactory): RelDataType = {
     // 实现对meta data的访问
     ???

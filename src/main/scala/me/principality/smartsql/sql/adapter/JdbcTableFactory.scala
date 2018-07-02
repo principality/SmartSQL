@@ -2,7 +2,7 @@ package me.principality.smartsql.sql.adapter
 
 import java.util
 
-import me.principality.smartsql.sql.adapter.table.{JdbcScanTable, JdbcTable}
+import me.principality.smartsql.sql.adapter.table.{JdbcScanableTable, JdbcTable}
 import org.apache.calcite.rel.`type`.RelDataType
 import org.apache.calcite.schema.{SchemaPlus, TableFactory}
 
@@ -14,6 +14,6 @@ class JdbcTableFactory extends TableFactory[JdbcTable] {
                       name: String,
                       operand: util.Map[String, AnyRef],
                       rowType: RelDataType): JdbcTable = {
-    new JdbcScanTable
+    new JdbcScanableTable
   }
 }
