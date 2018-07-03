@@ -1,4 +1,6 @@
-package me.principality.smartsql.sql.sharding.define
+package me.principality.smartsql.sql.sharding.shard
+
+import me.principality.smartsql.sql.sharding.define.Database
 
 /**
   * 通过sharding key从当前的可用数据库连接中，获得需要发送SQL的目标数据库连接集合

@@ -1,12 +1,14 @@
-package me.principality.smartsql.sql.sharding
+package me.principality.smartsql.sql.sharding.worker
 
 import me.principality.smartsql.sql.sharding.define._
+import me.principality.smartsql.sql.sharding.merge.ResultSetMerger
+import me.principality.smartsql.sql.sharding.shard.{ShardingKey, ShardingRule, ShardingStrategy}
 import slick.jdbc.JdbcBackend
 
 /**
   * 基于slick实现后端的查询
   */
-class ShardingWorkerImpl(val urls: Seq[String], val schemaName: String) extends ShardingWorker
+abstract class ShardingWorkerImpl(val urls: Seq[String], val schemaName: String) extends ShardingWorker
   with ShardingStrategy
   with ResultSetMerger
   with AutoCloseable {
