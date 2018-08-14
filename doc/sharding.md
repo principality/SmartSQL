@@ -5,6 +5,28 @@
 
 ## 思路
 
+### 关于底层存储与计算节点
+
+整个数据的处理过程可以看作是多节点map计算节点reduce的过程。
+
+使用MySQL作为底层存储，由MySQL完成：
+- 数据的提供
+- 数据的map计算
+
+MySQL节点包含IO和CPU的负载
+
+分布式存储层需要支持以下特性：
+1. 分布方案(含分布式索引)
+2. 高可用
+3. scan, range, key查询
+4. 跨行事务
+
+如分布式方案在计算节点完成，则需要实现分布式索引
+1. learned index
+2. bw-tree
+
+### 关于分片
+
 分片的方法有多种，需要抽象其实现流程
 
 - 获取分片的方法，初始化分片的处理器
@@ -25,10 +47,18 @@
 
 index是核心功能，假如对数据进行查询，且查询条件不包含分片主键时，
 不带index会导致数据查询被迫分派到所有的后端上，引起数据查询的多余执行
-- debezium用于抽取mysql数据记录
+
+index的实现有多种方式：
+- 把row数据映射成binary key（参考bitmap index），太长的row可以通过columnar的方式管理
+- 使用map的方式，实现倒排索引（value -> sequencekey -> {node list}）
+
+为了减少网络访问的延时，可以使用分布式缓存，让多个节点读取缓存中的数据
 - treemap:
   - 弱一致性：akka-distributed-data, hazelcast, infinispan
   - 强一致性：apache geode, apache ignite
+
+为了对数据进行index建设，考虑数据的同步倒入
+- debezium用于抽取mysql数据记录
 
 ### util
 
@@ -41,9 +71,9 @@ index是核心功能，假如对数据进行查询，且查询条件不包含分
   - snowflake按主键中的服务器编号获得目标服务器
   - 全局服务唯一id可以按HASH进行分配
 
-### merge
+### worker
 
-完成分片的计算后，需要把结果进行合并
+- merge: 完成分片的计算后，需要把结果进行合并
 
 ### meta
 
@@ -52,6 +82,15 @@ index是核心功能，假如对数据进行查询，且查询条件不包含分
 - 分片的方法，以及相应的参数
 
 先用model.json文件进行配置，计划将来该部分实现放到MetaRepository中
+
+### xa
+
+- 全局事务ID，全局锁
+- 事务超时管理
+
+### monitor
+
+使用akka内置机制实现节点状态监控？
 
 ## 二次分片（扩容）
 
