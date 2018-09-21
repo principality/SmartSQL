@@ -15,7 +15,6 @@ libraryDependencies ++= Seq(
   "ch.qos.logback" % "logback-classic" % "1.2.3",
   "org.scodec" %% "scodec-bits" % "1.1.5",
   "org.scodec" %% "scodec-core" % "1.10.3",
-  "org.apache.calcite" % "calcite-core" % "1.16.0",
   "org.mariadb.jdbc" % "mariadb-java-client" % "2.2.3",
   "com.typesafe.slick" %% "slick" % "3.2.3",
   "com.typesafe.slick" %% "slick-hikaricp" % "3.2.3",

@@ -20,3 +20,28 @@
 - transaction
 - high availability
 - centric meta repository
+
+### 常见存储引擎
+
+2018-9
+
+- Oracle **
+- mysql **
+- MS-SQL *
+- Postgres **
+- MongoDB **
+- DB2
+- ElasticSearch *
+- Redis
+- MS-Access
+- Cassandra *
+- SQLite
+- Teradata
+- Splunk
+- MariaDB *
+- Solr *
+- Hive *
+- HBase **
+- SAP Adaptive Server
+- FileMaker
+- Amazon DynamoDB

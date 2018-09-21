@@ -1,6 +1,6 @@
 package me.principality.smartsql.calcite
 
-import me.principality.smartsql.sql.JdbcHandler
+import me.principality.smartsql.sqlexec.JdbcHandler
 import org.specs2.Specification
 import org.specs2.specification.core.SpecStructure
 
