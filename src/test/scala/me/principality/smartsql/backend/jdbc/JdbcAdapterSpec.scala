@@ -1,4 +1,4 @@
-package me.principality.smartsql.calcite
+package me.principality.smartsql.backend.jdbc
 
 import me.principality.smartsql.sqlexec.JdbcHandler
 import org.specs2.Specification
