@@ -55,7 +55,7 @@ index的实现有多种方式：
 为了减少网络访问的延时，可以使用分布式缓存，让多个节点读取缓存中的数据
 - treemap:
   - 弱一致性：akka-distributed-data, hazelcast, infinispan
-  - 强一致性：apache geode, apache ignite
+  - 强一致性：apache geode, apache ignite, bdbje
 
 为了对数据进行index建设，考虑数据的同步倒入
 - debezium用于抽取mysql数据记录
