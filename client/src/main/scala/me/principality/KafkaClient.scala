@@ -1,19 +1,14 @@
 package me.principality
 
-import java.io.FileInputStream
-import java.sql.{Connection, DriverManager, ResultSet, Statement}
-import java.util
-import java.util.Properties
-
 import cakesolutions.kafka.KafkaConsumer
 import cakesolutions.kafka.KafkaConsumer.Conf
 import com.typesafe.config.ConfigFactory
-import org.apache.calcite.adapter.java.ReflectiveSchema
-import org.apache.calcite.avatica.ConnectStringParser
-import org.apache.calcite.jdbc.CalciteConnection
-import org.apache.calcite.schema.SchemaPlus
-import org.apache.kafka.clients.consumer.{ConsumerRecord, ConsumerRecords}
+import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.apache.kafka.common.serialization.StringDeserializer
+
+import java.sql.{DriverManager, ResultSet}
+import java.util
+import java.util.Properties
 
 object KafkaClient {
   def main(args: Array[String]): Unit = {

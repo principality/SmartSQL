@@ -1,12 +1,12 @@
 # SmartSQL
 
-Distributed computing middle-ware for MySQL/Postgres/...
+Distributed computing middle-ware for multi-storage
 
 ## Why
 
-Add distributed analysis ability to distributed database solution.
+Add distributed analytic ability to distributed storage solution.
 
-分布式的MySQL/Postgres/Storage...在市面上是有方案的，但是，在面向数据实时入库时，
+分布式的Storage...在市面上是有方案的，但是，在面向数据实时入库时，
 还提供分析计算能力的一体化方案，则很缺少。
 
 这意味着如果要在业务上实现分布式事务，同时支持分布式计算，则需要构建两套系统，
@@ -14,8 +14,8 @@ Add distributed analysis ability to distributed database solution.
 
 毫无疑问，上述架构导致了提升了系统的复杂度，增加了开发和应用的难度。
 
-SmartSQL在分布式OLTP方案的基础上，实现对分布式OLTP的数据智能感知，并增加计算分析的功能，
-只需简单的配置，即可为分布式OLTP增加智能计算能力，从而满足OLTP+OLAP混合的应用场景，
+SmartSQL在分布式存储方案的基础上，增加计算分析的功能，只需简单的配置，
+即可为分布式存储增加智能计算能力，从而满足OLTP+OLAP混合的应用场景，
 实现智能分析和在线事务的一体化处理。
 
 ## RoadMap
